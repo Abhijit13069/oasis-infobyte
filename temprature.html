@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    input, select, button {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Temperature Converter</h2>
+
+  <label for="temperature">Temperature:</label>
+  <input type="text" id="temperature" placeholder="Enter temperature" oninput="validateInput()">
+
+  <label for="unit">Unit:</label>
+  <select id="unit">
+    <option value="celsius">Celsius</option>
+    <option value="fahrenheit">Fahrenheit</option>
+    <option value="kelvin">Kelvin</option>
+  </select>
+
+  <button onclick="convertTemperature()">Convert</button>
+
+  <div id="result"></div>
+
+  <script>
+    function validateInput() {
+      var input = document.getElementById('temperature').value;
+      if (isNaN(input)) {
+        alert('Please enter a valid number for temperature.');
+        document.getElementById('temperature').value = '';
+      }
+    }
+
+    function convertTemperature() {
+      var temperature = parseFloat(document.getElementById('temperature').value);
+      var unit = document.getElementById('unit').value;
+      var result = document.getElementById('result');
+
+      if (isNaN(temperature)) {
+        alert('Please enter a valid number for temperature.');
+        document.getElementById('temperature').value = '';
+        result.innerHTML = '';
+        return;
+      }
+
+      if (unit === 'celsius') {
+        result.innerHTML = temperature + '°C is ' + celsiusToFahrenheit(temperature) + '°F and ' + celsiusToKelvin(temperature) + 'K.';
+      } else if (unit === 'fahrenheit') {
+        result.innerHTML = temperature + '°F is ' + fahrenheitToCelsius(temperature) + '°C and ' + fahrenheitToKelvin(temperature) + 'K.';
+      } else if (unit === 'kelvin') {
+        result.innerHTML = temperature + 'K is ' + kelvinToCelsius(temperature) + '°C and ' + kelvinToFahrenheit(temperature) + '°F.';
+      }
+    }
+
+    function celsiusToFahrenheit(celsius) {
+      return (celsius * 9/5) + 32;
+    }
+
+    function celsiusToKelvin(celsius) {
+      return celsius + 273.15;
+    }
+
+    function fahrenheitToCelsius(fahrenheit) {
+      return (fahrenheit - 32) * 5/9;
+    }
+
+    function fahrenheitToKelvin(fahrenheit) {
+      return (fahrenheit - 32) * 5/9 + 273.15;
+    }
+
+    function kelvinToCelsius(kelvin) {
+      return kelvin - 273.15;
+    }
+
+    function kelvinToFahrenheit(kelvin) {
+      return (kelvin - 273.15) * 9/5 + 32;
+    }
+  </script>
+
+</body>
+</html>
